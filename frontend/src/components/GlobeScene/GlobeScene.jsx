@@ -13,6 +13,10 @@ export const GlobeScene = ({ satellites = [] }) => {
   });
 
   useEffect(() => {
+    console.log("Satellites recebidos no globo:", satellites);
+  }, [satellites]);
+
+  useEffect(() => {
     const updateSize = () => {
       if (containerRef.current) {
         setDimensions({
@@ -52,7 +56,7 @@ export const GlobeScene = ({ satellites = [] }) => {
         name: sat.name,
         id: sat.id,
         altitude: sat.altitude,
-        color: "#00ffff", // amarelo = sol, ciano = noite
+        color: "#00ffff",
       };
     });
 
