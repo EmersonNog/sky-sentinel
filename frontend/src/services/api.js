@@ -1,7 +1,7 @@
 // src/services/api.js
 import axios from "axios";
 
-const BASE_URL = "https://sky-sentinel-production.up.railway.app/";
+const BASE_URL = "https://sky-sentinel-production.up.railway.app";
 
 export const fetchSatellites = async (ids) => {
   if (!ids || ids.length === 0) return [];
