@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { GlobeScene } from "./components/GlobeScene/GlobeScene";
 import { fetchSatellites, fetchSatellitesList } from "./services/api";
 import { Sidebar } from "./components/Sidebar/Sidebar";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import styled from "styled-components";
 
 const AppContainer = styled.div`
@@ -10,16 +11,18 @@ const AppContainer = styled.div`
   height: 100vh;
   width: 100vw;
   overflow: hidden;
+  position: relative;
 `;
 
 const MainContent = styled.div`
-  margin-left: 190px;
+  margin-left: 280px;
   flex: 1;
   height: 100vh;
-  width: calc(100vw - 150px);
+  width: calc(100vw - 280px);
+
   @media (max-width: 768px) {
-    margin-left: 80px;
-    width: calc(100vw - 80px);
+    margin-left: 0;
+    width: 100vw;
   }
 `;
 
@@ -29,15 +32,14 @@ function App() {
   const [satellites, setSatellites] = useState([]);
   const [search, setSearch] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
+  const [isSidebarOpen, setSidebarOpen] = useState(false);
 
   const satellitesPerPage = 10;
 
-  // busca filtrada
   const filteredSatellites = satelliteList.filter((sat) =>
     sat.name.toLowerCase().includes(search.toLowerCase())
   );
 
-  // paginação da interface lateral
   const paginatedSatellites = search
     ? filteredSatellites.slice(0, satellitesPerPage)
     : satelliteList.slice(
@@ -49,7 +51,6 @@ function App() {
     ? 1
     : Math.ceil(satelliteList.length / satellitesPerPage);
 
-  // carregar lista básica com nome e id
   useEffect(() => {
     const loadList = async () => {
       const list = await fetchSatellitesList();
@@ -58,7 +59,6 @@ function App() {
     loadList();
   }, []);
 
-  // carregar dados completos dos satélites selecionados (em lotes)
   useEffect(() => {
     const loadSelectedSatellites = async () => {
       if (selectedIds.length === 0) {
@@ -84,7 +84,16 @@ function App() {
 
   return (
     <AppContainer>
-      <Sidebar>
+      <button
+        className={`hamburger-btn sleek ${isSidebarOpen ? "hidden" : ""}`}
+        onClick={() => setSidebarOpen(true)}
+      >
+        <span className="line line-top" />
+        <span className="line line-middle" />
+        <span className="line line-bottom" />
+      </button>
+
+      <Sidebar isOpen={isSidebarOpen} onClose={() => setSidebarOpen(false)}>
         <input
           type="text"
           placeholder="Buscar satélite..."
@@ -99,11 +108,7 @@ function App() {
           {paginatedSatellites.map((sat) => (
             <li key={sat.id}>
               <label
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "0.5rem",
-                }}
+                style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}
               >
                 <input
                   type="checkbox"
@@ -128,20 +133,21 @@ function App() {
               onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
               disabled={currentPage === 1}
             >
-              Anterior
+              <ChevronLeft size={16} />
             </button>
-            <span>
+            <span className="pagination-info">
               Página {currentPage} de {totalPages}
             </span>
             <button
               onClick={() => setCurrentPage((p) => Math.min(p + 1, totalPages))}
               disabled={currentPage === totalPages}
             >
-              Próxima
+              <ChevronRight size={16} />
             </button>
           </div>
         )}
       </Sidebar>
+
       <MainContent>
         <GlobeScene satellites={satellites} />
       </MainContent>
