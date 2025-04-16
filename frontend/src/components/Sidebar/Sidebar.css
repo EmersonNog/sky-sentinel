@@ -1,0 +1,103 @@
+/* Estilo padrão (Desktop) */
+.sidebar {
+  width: 280px;
+  min-width: 20px;
+  background-color: #1f1f1f;
+  color: white;
+  padding: 1rem;
+  box-sizing: border-box;
+  overflow-y: auto;
+  height: 100vh;
+  border-right: 2px solid #333;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 10;
+}
+
+.sidebar-search {
+  padding: 8px 12px;
+  margin-bottom: 12px;
+  border-radius: 6px;
+  border: none;
+  width: 90%;
+  font-size: 0.9rem;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar li {
+  padding: 10px 12px;
+  background: #2b2b2b;
+  margin-bottom: 8px;
+  border-radius: 6px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 0.95rem;
+  transition: background 0.2s ease;
+}
+
+.sidebar li:hover {
+  background: #3d3d3d;
+  cursor: pointer;
+}
+
+.sidebar-logo {
+  width: 250px;
+  height: auto;
+  object-fit: contain;
+  margin-left: -10px;
+}
+
+.pagination-controls {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.pagination-controls button {
+  background: #00ffff;
+  border: none;
+  padding: 6px 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  color: black;
+  font-weight: bold;
+}
+
+.pagination-controls button:disabled {
+  background: #444;
+  color: #aaa;
+  cursor: not-allowed;
+}
+
+/* Telas pequenas (mobile) */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 150px;
+    padding: 0.5rem 0.5rem;
+  }
+
+  .sidebar li {
+    font-size: 0.75rem;
+    text-align: left;
+    padding: 6px 8px;
+    margin-bottom: 6px;
+  }
+
+  .sidebar-logo {
+    width: 150px;
+    height: auto;
+    object-fit: contain;
+  }
+}
