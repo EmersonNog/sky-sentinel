@@ -52,6 +52,7 @@
 
 .sidebar-logo {
   width: 250px;
+  margin-bottom: 15px;
   height: auto;
   object-fit: contain;
   margin-left: -10px;
@@ -59,6 +60,7 @@
 
 .pagination-controls {
   margin-top: 1rem;
+  margin-bottom: 1rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -135,6 +137,23 @@
 
 .close-btn {
   display: none;
+}
+
+.sidebar-footer {
+  margin-top: auto;
+  font-size: 0.7rem;
+  color: #888;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding-top: 1rem;
+  border-top: 1px solid #333;
+}
+
+.footer-icon {
+  font-size: 0.9rem;
+  color: #ccc;
 }
 
 @media (max-width: 768px) {

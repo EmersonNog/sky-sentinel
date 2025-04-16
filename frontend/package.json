@@ -21,6 +21,7 @@
     "react-dom": "^19.0.0",
     "react-globe.gl": "^2.33.2",
     "react-leaflet": "^5.0.0",
+    "react-toastify": "^11.0.5",
     "styled-components": "^6.1.17",
     "suncalc": "^1.9.0",
     "three": "^0.175.0",

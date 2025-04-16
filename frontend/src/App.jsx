@@ -1,9 +1,10 @@
-// src/App.jsx
 import { useEffect, useState } from "react";
 import { GlobeScene } from "./components/GlobeScene/GlobeScene";
 import { fetchSatellites, fetchSatellitesList } from "./services/api";
 import { Sidebar } from "./components/Sidebar/Sidebar";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import styled from "styled-components";
 
 const AppContainer = styled.div`
@@ -76,7 +77,30 @@ function App() {
 
       const results = await Promise.all(batches);
       const merged = results.flat();
-      setSatellites(merged);
+
+      const satellitesWithCoords = merged.filter(
+        (sat) => sat.latitude != null && sat.longitude != null
+      );
+
+      const satellitesWithoutCoords = merged.filter(
+        (sat) => sat.latitude == null || sat.longitude == null
+      );
+
+      satellitesWithoutCoords.forEach((sat) => {
+        toast.warn(
+          <span>
+            Localização do satélite <strong>"{sat.name}"</strong> está oculta
+            por restrição ou ausência de dados.
+          </span>,
+          {
+            position: "bottom-right",
+            autoClose: 4000,
+            theme: "dark",
+          }
+        );
+      });
+
+      setSatellites(satellitesWithCoords);
     };
 
     loadSelectedSatellites();
@@ -151,6 +175,8 @@ function App() {
       <MainContent>
         <GlobeScene satellites={satellites} />
       </MainContent>
+
+      <ToastContainer />
     </AppContainer>
   );
 }

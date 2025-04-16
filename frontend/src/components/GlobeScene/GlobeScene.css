@@ -3,3 +3,48 @@
   height: 100%;
   position: relative;
 }
+
+.rotation-toggle {
+  display: flex;
+  gap: 15px;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 101;
+  background-color: rgba(40, 40, 40, 0.8);
+  color: #e0f7ff;
+  border: 1px solid #444;
+  padding: 6px 10px;
+  font-size: 0.75rem;
+  border-radius: 6px;
+  cursor: pointer;
+  backdrop-filter: blur(4px);
+  transition: background 0.3s ease;
+}
+
+.rotation-toggle:hover {
+  background-color: rgba(60, 60, 60, 0.9);
+  color: white;
+}
+
+.reset-view {
+  position: absolute;
+  display: flex;
+  gap: 5px;
+  top: 60px;
+  right: 20px;
+  z-index: 101;
+  background-color: rgba(40, 40, 40, 0.8);
+  color: #e0f7ff;
+  border: 1px solid #444;
+  padding: 6px 10px;
+  font-size: 0.75rem;
+  border-radius: 6px;
+  cursor: pointer;
+  backdrop-filter: blur(4px);
+  transition: background 0.3s ease;
+}
+.reset-view:hover {
+  background-color: rgba(60, 60, 60, 0.9);
+  color: white;
+}

@@ -1,0 +1,45 @@
+.globe-controls {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 101;
+}
+
+.globe-button {
+  display: flex;
+  align-items: center;
+  background-color: rgba(40, 40, 40, 0.8);
+  color: #e0f7ff;
+  border: 1px solid #444;
+  padding: 6px 10px;
+  font-size: 0.75rem;
+  border-radius: 6px;
+  cursor: pointer;
+  backdrop-filter: blur(4px);
+  transition: background 0.3s ease;
+}
+
+.globe-button:hover {
+  background-color: rgba(60, 60, 60, 0.9);
+  color: white;
+}
+
+.globe-button .label {
+  white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+  .globe-button .label {
+    display: none;
+  }
+
+  .globe-button {
+    gap: 0;
+    padding: 6px;
+    width: 36px;
+    justify-content: center;
+  }
+}

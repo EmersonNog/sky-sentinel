@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import Globe from "react-globe.gl";
 import * as THREE from "three";
-import SunCalc from "suncalc";
+import { Target, Rotate3D } from "lucide-react";
+import { GlobeControls } from "../GlobeControls/GlobeControls";
 import "./GlobeScene.css";
 
 export const GlobeScene = ({ satellites = [] }) => {
@@ -62,6 +63,8 @@ export const GlobeScene = ({ satellites = [] }) => {
 
   return (
     <div ref={containerRef} className="globe-container">
+      <GlobeControls globeRef={globeRef} />
+
       <Globe
         ref={globeRef}
         width={dimensions.width}

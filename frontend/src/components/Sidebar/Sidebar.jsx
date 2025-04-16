@@ -13,6 +13,10 @@ export const Sidebar = ({ children, isOpen, onClose }) => {
         </button>
       </div>
       <div className="sidebar-content">{children}</div>
+      <footer className="sidebar-footer">
+        <span className="footer-icon">©</span>
+        <span>Nogueira Technologies {new Date().getFullYear()}</span>
+      </footer>
     </aside>
   );
 };
