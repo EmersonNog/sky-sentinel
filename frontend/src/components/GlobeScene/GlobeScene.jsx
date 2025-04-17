@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import Globe from "react-globe.gl";
 import * as THREE from "three";
-import { Target, Rotate3D } from "lucide-react";
 import { GlobeControls } from "../GlobeControls/GlobeControls";
 import "./GlobeScene.css";
 
@@ -50,16 +49,38 @@ export const GlobeScene = ({ satellites = [] }) => {
   }, []);
   const satMarkers = satellites
     .filter((sat) => sat.latitude != null && sat.longitude != null)
-    .map((sat) => {
-      return {
-        lat: sat.latitude,
-        lng: sat.longitude,
-        name: sat.name,
-        id: sat.id,
-        altitude: sat.altitude,
-        color: "#00ffff",
-      };
-    });
+    .map((sat) => ({
+      lat: sat.latitude,
+      lng: sat.longitude,
+      name: sat.name,
+      id: sat.id,
+      altitude: sat.altitude,
+      speed: sat.speed,
+      launched: sat.launched,
+      countries: sat.countries,
+      status: sat.status,
+      color: "#00ffff",
+    }));
+
+  function formatDate(dateStr) {
+    if (!dateStr) return "Não informado";
+    const date = new Date(dateStr);
+    if (isNaN(date)) return "Inválido";
+    return date.toLocaleDateString("pt-BR");
+  }
+
+  function traduzirStatus(status) {
+    switch (status?.toLowerCase()) {
+      case "alive":
+        return "Ativo";
+      case "dead":
+        return "Inativo";
+      case "re-entered":
+        return "Reentrou na atmosfera";
+      default:
+        return "Desconhecido";
+    }
+  }
 
   return (
     <div ref={containerRef} className="globe-container">
@@ -80,9 +101,30 @@ export const GlobeScene = ({ satellites = [] }) => {
         pointRadius={0.3}
         pointsData={satMarkers}
         pointColor="color"
-        pointLabel={(d) =>
-          `<b>${d.name}</b><br/>Altitude: ${d.altitude?.toFixed(2)} km`
-        }
+        pointLabel={(d) => `
+          <div style="max-width: 240px; font-family: Arial, sans-serif;">
+            <div style="font-size: 15px; font-weight: bold; margin-bottom: 6px;">${
+              d.name
+            }</div>
+            <div><strong>🛰️ NORAD ID:</strong> ${d.id || "Não disponível"}</div>
+            <div><strong>📡 Status:</strong> ${traduzirStatus(d.status)}</div>
+            <div><strong>🚀 Altitude:</strong> ${d.altitude?.toFixed(
+              2
+            )} km</div>
+            ${
+              d.speed
+                ? `<div><strong>💨 Velocidade:</strong> ${d.speed.toFixed(
+                    2
+                  )} km/h</div>`
+                : ""
+            }
+            <div><strong>📅 Lançamento:</strong> ${formatDate(d.launched)}</div>
+            <div><strong>🌍 País(es):</strong> ${
+              d.countries?.join(", ") || "Desconhecido"
+            }</div>
+            
+          </div>
+        `}
         onGlobeReady={() => {
           const scene = globeRef.current.scene();
           const directionalLight = new THREE.DirectionalLight(0xffffff, 1);

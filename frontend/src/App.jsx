@@ -4,8 +4,8 @@ import { fetchSatellites, fetchSatellitesList } from "./services/api";
 import { Sidebar } from "./components/Sidebar/Sidebar";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import styled from "styled-components";
+import "react-toastify/dist/ReactToastify.css";
 
 const AppContainer = styled.div`
   display: flex;
@@ -127,6 +127,12 @@ function App() {
             setCurrentPage(1);
           }}
           className="sidebar-search"
+          style={{
+            backgroundColor: "#1a1a1a",
+            color: "#ccc",
+            border: "1px solid #ccc",
+            borderRadius: "6px",
+          }}
         />
         <ul>
           {paginatedSatellites.map((sat) => (

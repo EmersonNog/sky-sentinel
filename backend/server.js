@@ -57,7 +57,6 @@ app.get("/api/satellites", async (req, res) => {
           latitude: data?.satlatitude ?? null,
           longitude: data?.satlongitude ?? null,
           altitude: data?.sataltitude ?? null,
-          speed: data?.satvelocity ?? null,
           status: meta.status || "desconhecido",
           image: meta.image || null,
           launched: meta.launched || null,
